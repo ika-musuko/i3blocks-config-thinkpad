@@ -1,0 +1,52 @@
+# i3blocks configuration file
+#
+# The i3blocks man page describes the usage of the binary,
+# and its website describes the configuration:
+#
+#     https://vivien.github.io/i3blocks
+
+
+# Global properties
+separator=true
+separator_block_width=15
+
+[disk_root]
+command=./disk_stats '/'
+interval=5
+color=#75715e
+
+[disk_home]
+command=./disk_stats '/home'
+interval=5
+color=#75715e
+
+[kernel]
+command=echo $(uname -s -r)
+interval=once
+color=#f4bf75
+
+[uptime]
+command=echo up: $(uptime -p | awk '{$1=""; print}')
+interval=60
+color=#a6e22e
+
+[volume]
+command=[ $(pamixer --get-mute) = "false" ] && printf "vol: " || printf "MUTE: " && echo $(pamixer --get-volume)%
+interval=1
+color=#ae81ff
+
+[battery]
+command=./battery_stats
+interval=10
+color=#66d9ef
+
+[cpu_temp]
+command=echo temp: $(sensors coretemp-isa-0000 | head -n 3 | tail -n 1 | awk '{print $4}')
+interval=3
+color=#f92672
+
+[time]
+command=date '+%Y-%m-%d %H:%M:%S'
+interval=1
+color=#a1efe4
+
