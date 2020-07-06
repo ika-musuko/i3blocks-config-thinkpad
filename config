@@ -11,32 +11,37 @@ separator=true
 separator_block_width=15
 
 [disk_root]
-command=./disk_stats '/'
+command=disk '/'
 interval=5
 color=#75715e
 
 [disk_home]
-command=./disk_stats '/home'
+command=disk '/home'
 interval=5
 color=#75715e
 
+[memory]
+command=echo mem: $(neomem)
+interval=1
+color=#66d9ef
+
 [kernel]
-command=echo $(uname -s -r)
+command=echo ker: $(uname -s -r)
 interval=once
 color=#f4bf75
 
 [uptime]
-command=echo up: $(uptime -p | awk '{$1=""; print}')
+command=awk '{print "up: "int($1/86400)"d "int(($1%86400)/3600)"h "int(($1%3600)/60)"m"}' /proc/uptime  
 interval=60
 color=#a6e22e
 
 [volume]
-command=[ $(pamixer --get-mute) = "false" ] && printf "vol: " || printf "MUTE: " && echo $(pamixer --get-volume)%
+command=[ $(pamixer --get-mute) = "false" ] && printf "vol: " || printf "MUTE: " && echo $(pamixer --get-volume)%; [ $button = 4 ] && pamixer --increase 5; [ $button = 5 ] && pamixer --decrease 5;
 interval=1
 color=#ae81ff
 
 [battery]
-command=./battery_stats
+command=battery
 interval=10
 color=#66d9ef
 
