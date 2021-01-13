@@ -18,40 +18,50 @@ color=#75715e
 [disk_home]
 command=disk '/home'
 interval=5
-color=#75715e
+color=#888888
 
 [memory]
 command=echo mem: $(neomem)
 interval=1
-color=#66d9ef
+color=#011fff
 
-[kernel]
-command=echo ker: $(uname -s -r)
-interval=once
-color=#f4bf75
+#[kernel]
+#command=echo ker: $(uname -s -r)
+#interval=once
+#color=#f4bf75
 
 [uptime]
 command=awk '{print "up: "int($1/86400)"d "int(($1%86400)/3600)"h "int(($1%3600)/60)"m"}' /proc/uptime  
 interval=60
-color=#a6e22e
+color=#00ff00
 
 [volume]
 command=[ $(pamixer --get-mute) = "false" ] && printf "vol: " || printf "MUTE: " && echo $(pamixer --get-volume)%; [ $button = 4 ] && pamixer --increase 5; [ $button = 5 ] && pamixer --decrease 5;
 interval=1
-color=#ae81ff
+color=#ff00ff
 
 [battery]
 command=battery
 interval=10
-color=#66d9ef
+color=#ffff00
 
 [cpu_temp]
-command=echo temp: $(sensors coretemp-isa-0000 | head -n 3 | tail -n 1 | awk '{print $4}')
+command=echo cpu: $(sensors coretemp-isa-0000 | head -n 3 | tail -n 1 | awk '{print $4}')
 interval=3
-color=#f92672
+color=#ff0000
+
+[weather]
+command=curl "wttr.in/Chattanooga?m&format=1" | awk '{print $1 ": " $2}'
+interval=3600
+color=#00ffff
+
+[sunset]
+command=echo sun: $(sunset)
+interval=3600
+color=#ffff44
 
 [time]
 command=date '+%Y-%m-%d %H:%M:%S'
 interval=1
-color=#a1efe4
+color=#00ffff
 
